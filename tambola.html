@@ -15,11 +15,12 @@
    <body>
       <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
          <div id="logo">
-            <img src="https://static.ivanti.com/sites/marketing/media/images/logos/ivanti-logo-red.svg" alt="Ivanti" width='100px' height='50px'>
+            <img src="https://static.ivanti.com/sites/marketing/media/images/logos/ivanti-logo-red.svg" alt="Ivanti" width='80px' height='50px'>
          </div>
          <div class="container">
             <div>
-               <h1 style="color:#fff">Tambola - By BeyondCubicles</h1>
+            	<img src="https://images-na.ssl-images-amazon.com/images/I/713H2L-Xi-L.png" alt="Event" width='80px' height='40px' style="position:fixed; top:5; right:50;">
+            	<h3 style="color:#fff;"><i>Tambola - By BeyondCubicles</i></h3>
             </div>
          </div>
       </nav>
@@ -28,9 +29,9 @@
             <div  class="col-lg-2">
                <div class="well well-lg text-center" style="background-image: url('https://image.shutterstock.com/image-photo/tambola-coins-on-white-background-260nw-1953581818.jpg')">
                 <div class="bigNumberDisplay well well-lg" style="background-color: #E6E6FA">
-                    <div style="color:#ff0000;"; id="prevNum" >  0   </div>
+                    <div style="color:#999900;"; id="prevNum" >  0   </div>
                 </div>
-                <span>Last Number</span>
+                <h4 style="color : white;">Last Number</h4>
                </div>
                <div class="well well-lg text-center">
                   <h3>Categories</h3>
@@ -63,16 +64,15 @@
                   <input id="btnGenerate" type="button" value="Generate Number"/>
                </div>
 <table>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 </table>
             </div>
          </div>
@@ -128,9 +128,13 @@
          td.selected {
          color: #0D8930;
          }
+         .strikeout{
+         	color : white;
+         	background-color:black;
+         }
          #logo{
          position:fixed;
-         top:10;
+         top:5;
          left:20;
          }
       </style>
@@ -204,14 +208,11 @@
                 $(function(){
                     var $curParent, Content;
                     $(document).delegate("h6","click", function(){
-                        if($(this).closest("s").length) {
-                            Content = $(this).parent("s").html();
-                            $curParent = $(this).closest("s");
-                            $(Content).insertAfter($curParent);
-                            $(this).closest("s").remove();
+                    	if($(this).hasClass('strikeout')) {
+                    		$(this).removeClass('strikeout');
                         }
                         else {
-                            $(this).wrapAll("<s />");
+                            $(this).addClass('strikeout');
                         }
                     });
                 });
@@ -228,7 +229,7 @@
                      generateNextRandom: function() {
                          if (bingo.selectedNumbers.length > 89) {
                              alert("All numbers Exhausted");
-                             return 0;
+                             return -1;
                          }
                          var random = bingo.generateRandom();
                          while ($.inArray(random, bingo.selectedNumbers) > -1) {
@@ -240,8 +241,9 @@
                  };
                  $("#mirageElement").css("display","none");
                  $('td').each(function() {
-                     var concatClass = this.cellIndex + "" + this.parentNode.rowIndex;
-                     var numberString = parseInt(concatClass, 10).toString();
+                     var concatClass = this.parentNode.rowIndex + "" + this.cellIndex;
+                     var numberInt = parseInt(concatClass, 10) + 1;
+                     var numberString = (numberInt).toString();
                      $(this).addClass("cell" + numberString).text(numberString);
                  });
                  var random = 0;
@@ -258,6 +260,9 @@
                          duration: animDuration
                      });
                      setTimeout(function(){
+                     	 if(random == -1){
+                     	 	$('#btnGenerate').attr('disabled','disabled');
+                     	 }
                          if(bingoNumberWords[random-1]){
                              $("#bingoWords").text(bingoNumberWords[random-1]);
                          }else{
